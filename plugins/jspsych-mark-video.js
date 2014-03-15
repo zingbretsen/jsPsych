@@ -16,7 +16,7 @@
             for (var i = 0; i < trials.length; i++) {
                 trials[i] = {};
                 trials[i].type = "mark-video";
-                trials[i].stim = params.stimuli[i];
+                trials[i].stimulus = params.stimuli[i];
                 trials[i].key = (typeof params.key === 'undefined') ? 32 : params.key;
                 trials[i].movie_size = (typeof params.movie_size) ? [320, 180] : params.movie_size;
                 // timing parameters
