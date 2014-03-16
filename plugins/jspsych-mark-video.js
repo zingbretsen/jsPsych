@@ -18,7 +18,7 @@
                 trials[i].type = "mark-video";
                 trials[i].stimulus = params.stimuli[i];
                 trials[i].key = (typeof params.key === 'undefined') ? 32 : params.key;
-                trials[i].movie_size = (typeof params.movie_size) ? [320, 180] : params.movie_size;
+                trials[i].movie_size = (typeof params.movie_size) ? [] : params.movie_size;
                 // timing parameters
                 trials[i].timing_pre_trial = (typeof params.timing_pre_trial === 'undefined') ? 0 : params.timing_pre_trial;
                 trials[i].timing_post_trial = (typeof params.timing_post_trial === 'undefined') ? 1000 : params.timing_post_trial;
@@ -33,16 +33,19 @@
 
             var times = [];
 
-            display_element.append($('video', {
+            display_element.append($('<video>', {
                 id: 'jspsych-mark-video-vid',
-                attr: {
-                    width: trial.movie_size[0],
-                    height: trial.movie_size[1]
-                },
                 css: {
                     border: '5px solid white'
                 }
             }));
+            
+            if(typeof trial.movie_size[0] !== 'undefined'){
+                $('#jspsych-mark-video-vid').attr({
+                    width: trial.movie_size[0],
+                    height: trial.movie_size[1]
+                });
+            }
 
             for (var i = 0; i < trial.stimulus.length; i++) {
                 $('#jspsych-mark-video-vid').append('<source src="' + trial.stimulus[i] + '">');
@@ -81,7 +84,7 @@
                     "trial_type": "mark-video",
                     "trial_index": block.trial_idx,
                     "stimulus": JSON.stringify(trial.stimulus),
-                    "times": JSON.stringify(trial.times)
+                    "times": JSON.stringify(times)
                 };
 
                 block.writeData($.extend({}, trial_data, trial.data));
