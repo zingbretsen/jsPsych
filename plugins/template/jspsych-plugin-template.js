@@ -2,9 +2,64 @@
  * Example plugin template
  */
 
-jsPsych.plugins["PLUGIN-NAME"] = (function() {
+jsPsych.plugins["jspsych-sam"] = (function() {
 
   var plugin = {};
+
+  jsPsych.pluginAPI.registerPreload('jspsych-sam', 'stimuli', 'image',function(t){ return !t.is_html || t.is_html == 'undefined'});
+
+  plugin.info = {
+    name: 'jspsych-sam',
+    description: '',
+    parameters: {
+      stimuli: {
+        type: [jsPsych.plugins.parameterType.STRING],
+        default: undefined,
+        array: true,
+        no_function: false,
+        description: ''
+      },
+      is_html: {
+        type: [jsPsych.plugins.parameterType.BOOL],
+        default: false,
+        no_function: false,
+        description: ''
+      },
+      choices: {
+        type: [jsPsych.plugins.parameterType.KEYCODE],
+        default: undefined,
+        array: true,
+        no_function: false,
+        description: ''
+      },
+      prompt: {
+        type: [jsPsych.plugins.parameterType.STRING],
+        default: '',
+        no_function: false,
+        description: ''
+      },
+      timing_stim: {
+        type: [jsPsych.plugins.parameterType.INT],
+        default: -1,
+        array: true,
+        no_function: false,
+        description: ''
+      },
+      timing_response: {
+        type: [jsPsych.plugins.parameterType.INT],
+        default: -1,
+        no_function: false,
+        description: ''
+      },
+      response_ends_trial: {
+        type: [jsPsych.plugins.parameterType.BOOL],
+        default: true,
+        no_function: false,
+        description: ''
+      }
+    }
+  }
+
 
   plugin.trial = function(display_element, trial) {
 
