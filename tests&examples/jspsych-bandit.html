@@ -1,0 +1,128 @@
+    <!doctype html>
+    <html>
+
+    <head>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="../funcs.js"></script>
+    <script src="//socialdecisionmakinglaboratory.com/scripts/latest/external/purl.js"></script>
+    <script src="../jspsych.js"></script>
+    <script src="../plugins/jspsych-bandit.js"></script>
+    <script src="../plugins/jspsych-instructions.js"></script>
+    <script src="../plugins/jspsych-survey-likert.js"></script>
+    <script src="../plugins/jspsych-button-response.js"></script>
+    <script src="../plugins/jspsych-single-stim.js"></script>
+    <script src="../plugins/jspsych-single-stim-sam.js"></script>
+    <script src="../plugins/jspsych-text.js"></script>
+    <script src="../plugins/jspsych-survey-text.js"></script>
+    <script src="../plugins/jspsych-html.js"></script>
+    <script src="../plugins/jspsych-instructions.js"></script>
+    <script src="../plugins/jspsych-call-function.js"></script>
+    <link rel="stylesheet" href="css/jquery-ui.css"></link>
+    <link rel="stylesheet" href="../css/jspsych.css"></link>
+    <style>
+    img {
+	width: 150px; 
+    }
+
+    .history {
+	width: 75px;
+    }
+
+    .peer {
+	width: 100px;
+    }
+
+    .jspsych-display-element {
+	display	: block;
+	margin-top	: 50px;
+    }
+
+    .likertScale {
+	width: 75px;
+    }
+
+    .underline {
+	text-decoration: underline;
+    }
+</style>
+    </head>
+    <script>
+     var study = "movieChoice1";
+     var subjID = getSubjID(8);
+
+     var testing = $.url().param('testing');
+     if (testing == 1) {
+	 testing = true;
+     } else {
+	 testing = false;
+     }
+
+     var timeline = [];
+
+     var welcome_block = {
+	 type: "text",
+	 text: "<div class='center-content'><br><br><br><br>Welcome to the experiment. Press any key to begin.",
+     };
+
+     var id_question = ["Worker ID:"];
+     var id_block = {
+	 type: 'survey-text',
+	 questions: [id_question],
+	 preamble: [" <div>REMINDER: YOU NEED A KEYBOARD FOR THIS TASK. YOU WILL NOT BE ABLE TO COMPLETE THIS TASK WITH A PHONE OR TABLET!</div> <br><hr><br> <div align=center>Please enter your Amazon Mechanical Turk Worker ID below.<br><br>If you do not enter it accurately, we will not be able to pay you.</div> "],
+     };
+
+
+     var demo_block = {
+	 type: 'survey-text',
+	 questions: ["Age: ", "Ethnicity: ", "Gender: "],
+	 preamble: [" <div>\
+<h4>Movie Choices </h4>\
+<p> In this task, you will be asked to choose which of two movies you would prefer to watch and to guess about the preferences of several other participants for the same movies. </p>\
+<p> Periodically, you will be given a choice between two 'mystery' boxes which will be further explained in the example. </p>\
+<p> In total, you will make choices for 35 sets of movies. The task should take less than 15 minutes. </p>\
+<p> Please enter some additional information and click \"Submit Answers\" to continue onto an example. </p>\
+<p style='font-size:small'> <strong>Do not</strong> refresh your browser when doing this task. If you do, you will have to repeat all of the trials you have already submitted. </p>\
+\
+<p> <strong>Technical requirements:</strong> </p>\
+<p style='font-size:small'> Please allow permission for Javascript to run on this site and disable any script blockers that are running. </p>\
+</div>"],
+     };
+
+
+     var bandit_block = {
+	 type: 'bandit',
+	 prompt: 'bandit prompt',
+	 stimDir: 'img/',
+	 nrow: 2,
+	 ncol: 2,
+	 choices: ['e', 'i','f','j'],
+	 stimuli: ['1.gif','2.gif','3.gif','4.gif'],
+	 schedules: [],
+	 timeline: [{}, {}, {}, {}],
+     };
+
+     /* timeline.push(welcome_block);
+      * timeline.push(id_block);
+      * timeline.push(demo_block);*/
+     timeline.push(bandit_block);
+
+     jsPsych.init({
+	 timeline: timeline,
+	 show_progress_bar: true,
+	 on_finish: function() {
+	     var data = jsPsych.data.getDataAsCSV();
+	     $('#jspsych-content').empty()
+				  .css('visibility', 'visible')
+				  .text(data);
+	     $.post("/scripts/latest/save.php", {subjid : subjID, studyName: study, folder: "sam", name : '_' + "sam", toWrite : data});
+	 }
+     });
+
+     jsPsych.data.addProperties({
+	 subjID: subjID,
+	 study: study
+     });
+    </script>
+
+    </html>
