@@ -1,0 +1,61 @@
+img {
+    width: 240px; 
+    /*width: 150px; */
+}
+
+.history {
+    width: 60px;
+}
+p.history {
+    font-size: 90%;
+}
+
+.peer {
+    width: 150px;
+    /*width: 100px;*/
+}
+#jspsych-peer {
+    margin-top: 0px;
+}
+#jspsych-prompt {
+    margin: 0px;
+}
+
+td>p {
+    margin: px;
+}
+
+#jspsych-progressbar-container span {
+    display: none;
+}
+
+.jspsych-display-element {
+    display	: block;
+    margin-top	: 50px;
+}
+
+.likertScale {
+    width: 75px;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+#jspsych-history {
+    margin-top: 50px;
+}
+#jspsych-prompt {
+    margin-botton: 0px;
+}
+
+#jspsych-prompt p{
+    margin-top: 0px;
+}
+
+.jspsych-label p {
+    margin: '0px';
+    height: '20px'
+}
+
+
