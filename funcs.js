@@ -299,7 +299,9 @@ function samTimelineGen (stims, peers, opts) {
     ];
     var peerCompares = opts.peerCompares || [1,1,0];
     var peerLabels = opts.peerLabels || ['A', 'B', 'C'];
+    var peerCPercent = opts.peerCPercent || '';
     var includeLikert = opts.includeLikert || false;
+    var stimDir = opts.stimDir || '';
     var block_num = opts.block_num || 0;
     var timing_post_trial = typeof opts.timing_post_trial == "undefined" ? 1000: opts.timing_post_trial  ;
     var testing = typeof opts.testing == "undefined" ? false: opts.testing ;
@@ -371,7 +373,9 @@ function samTimelineGen (stims, peers, opts) {
 	    testing		: testing,
 	    timing_post_trial	: timing_post_trial,
 	    choices		: choices,
+	    peerCPercent	: peerCPercent,
 	    data		: {block_num: block_num},
+	    stimDir             : stimDir,
 	    timeline: [
 		{prompt: "Which movie would you choose?", peer: 0},
 		{peer: 1},
@@ -423,6 +427,7 @@ function samTimelineGen (stims, peers, opts) {
 }
 
 function poliTimelineGen (stims, prompts, peers, opts) {
+    console.log(opts);
     var stims_prompts = [stims, prompts].transpose();
     stims_prompts.shuffle();
     var opts = opts || {}
@@ -494,14 +499,20 @@ function poliTimelineGen (stims, prompts, peers, opts) {
 
     var timeline = [];
 
+    console.log(opts);
+    console.log(opts);
+    console.log(opts);
+    console.log(opts);
+    console.log(opts);
+    console.log(opts);
     for(var i = 0; i < stims.length; i++) {
-	var trial_stims = ["oes/" + stims[i], "xes/" + stims[i]];
+	var trial_stims = ["oes/" + opts.stimDir + stims[i], "xes/" + opts.stimDir + stims[i]];
 	trial_stims.shuffle();
 	var block = {
 	    type		: 'similarity',
 	    prompt		: 'Which movie would you prefer to watch?',
 	    peers		: peers,
-	    stimDir             : '',
+	    stimDir             : './',
 	    peer_agree		: peer_agree[i],
 	    peer_compare	: peer_compare,
 	    peer_label		: peerLabels,
