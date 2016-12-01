@@ -130,7 +130,7 @@ jsPsych.plugins.similarity = (function() {
 	trial.show_ticks	= (typeof trial.show_ticks === 'undefined') ? false : trial.show_ticks;
 
 	trial.show_response = trial.show_response || "SECOND_STIMULUS";
-	trial.mystery = trial.mystery || ['mysterymovie1.jpg', 'mysterymovie2.jpg'];
+	trial.mystery = trial.mystery || ['img/mysterymovie1.jpg', 'img/mysterymovie2.jpg'];
 
 	trial.timing_post_trial		= (typeof trial.timing_post_trial === 'undefined') ? 1000: trial.timing_post_trial ; // default 1000ms
 	trial.timing_second_stim	= trial.timing_second_stim || -1; // -1 = inf time; positive numbers = msec to display second image.
