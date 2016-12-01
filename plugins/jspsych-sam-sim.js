@@ -122,6 +122,7 @@ jsPsych.plugins.similarity = (function() {
 
 
 	console.log("mytrial:");
+	console.log(trial);
 
 	// default parameters
 	trial.labels	= (typeof trial.labels === 'undefined') ? ["Not at all similar", "Identical"] : trial.labels;
@@ -145,10 +146,11 @@ jsPsych.plugins.similarity = (function() {
 	trial.phase		= trial.phase		|| "" ;
 	trial.peerDir		= trial.peerDir		|| 'img/agents/';
 	trial.peerExt		= trial.peerExt		|| '.jpg';
-	trial.stimDir		= trial.stimDir		|| 'img/movies/';
+	trial.stimDir		= (typeof trial.stimDir === 'undefined') ? 'img/movies/': trial.stimDir;
 	trial.stimTableWidth	= trial.stimTableWidth	|| '600px';
 	trial.prefix		= trial.prefix		|| 'jspsych-';
 	trial.mysteryCorrect	= trial.mysteryCorrect	|| 'B';
+	trial.peerCPercent      = trial.peerCPercent    || '';
 
 	trial.prompt = trial.prompt.replace(/\${peer}/, trial.peers[trial.peer]);
 	// if any trial variables are functions
@@ -457,13 +459,7 @@ jsPsych.plugins.similarity = (function() {
 			    src: trial.peerDir + trial.peers[trial.peer] + trial.peerExt,
 			    class: 'peer',
 			})
-		    ).append(
-			$('<p>', {
-			    src: trial.peers[trial.peer],
-			    class: 'peer',
-			})
 		    )
-
 		).append(
 		    $('<p>', {id: 'jspsych-peer-name'}).text(trial.peers[trial.peer])
 		);
@@ -649,8 +645,10 @@ jsPsych.plugins.similarity = (function() {
 		"MysteryPeer1"		: trial.peer1,
 		"MysteryPeer2"		: trial.peer2,
 		"phase"			: trial.phase,
+		"peerCPercent"		: trial.peerCPercent,
 	    };
 	    if (trial.phase == "MYSTERY") {
+		trial_data['mysteryRespKey'] = respKey;
 		// Chosen mystery peer
 		trial_data['mysteryPeerChosen'] = trial.peers[mysteryPeers[respChoiceNum]];
 		trial_data['mysteryLabelChosen'] = trial.peer_label[mysteryPeers[respChoiceNum]];
@@ -663,7 +661,6 @@ jsPsych.plugins.similarity = (function() {
 		} else {
 		    trial_data['ACC'] = 0;
 		}
-
 	    }
 
 	    for(var i = 0; i < trial.peers.length; i++) {
