@@ -601,9 +601,10 @@ function practiceGen(opts) {
 	    "peer_agree":[1,0,1],
 	    "peer_compare":[0,1,1],
 	    "peer_label":['Self', 'A', 'B'],
-	    "stimuli":["example1.jpg","example2.jpg"],
+	    "stimuli":["img/movies/example1.jpg","img/movies/example2.jpg"],
 	    "choices":["e","i"],
 	    "practice": true,
+	    "stimDir" : "",
 	    "timeline":[
 		{"phase": "FIRST",
 		 "prompt":"When each new pair of movies is presented, you will be asked to select the movie you would prefer to watch with the E or I key on your keyboard. Also, notice the table on the right, displaying your and others' choices. Try selecting a movie now to move on to the next step.<br>\
