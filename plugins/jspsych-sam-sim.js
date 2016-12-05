@@ -424,7 +424,7 @@ jsPsych.plugins.similarity = (function() {
 			css: {
 			}
 		    })
-		);
+		).addClass('practice');
 	    } else {
 		
 		if (trial.phase == "MYSTERY") {
