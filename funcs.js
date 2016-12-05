@@ -673,3 +673,91 @@ function practiceGen(opts) {
     }
     return timeline;
 }
+
+function practiceGenPoli(opts) {
+    console.log(opts);
+    var timeline = [
+	{
+	    "type":"similarity",
+	    "prompt":"Which position do you think ${peer} chose?",
+	    "peers":["You", "Bugs","Daffy"],
+	    "peer_agree":[1,0,1],
+	    "peer_compare":[0,1,1],
+	    "peer_label":['Self', 'A', 'B'],
+	    "stimuli":["xes/example/example.jpg","oes/example/example.jpg"],
+	    "choices":["e","i"],
+	    "practice": true,
+	    "stimDir" : "",
+	    "timeline":[
+		{"phase": "FIRST",
+		 "prompt":"When each new pair of positions is presented, you will be asked to select the stance you would take with the E or I key on your keyboard. Also, notice the table on the right, displaying your and others' choices. Try selecting a stance now to move on to the next step.<br>\
+<br>Should cartoons include plotlines involving duck-hunting?\
+<br>Which policy stance would you choose?",
+		 "peer":0},
+		{"peer":1,
+		 "prompt":"After choosing your own preference, you will be asked to make guesses about the preferences of several other participants for the same movies.\
+<br>Should cartoons include plotlines involving duck-hunting?\
+<br>Which policy stance do you think ${peer} chose?",
+		 'feedbackPrompt': 'You will receive feedback about their true preferences (indicated by an arrow pointing towards the participant\'s preferred movie).'
+		},
+		{"peer":2,
+		 "prompt":"Other participants may agree or disagree on their preferences.\
+<br>Should cartoons include plotlines involving duck-hunting?\
+<br>Which policy stance do you think ${peer} chose?",
+		 'feedbackPrompt': 'Initially you may not know anything about the other participants, but by observing their policy choices you can gradually improve your guesses.'
+		},
+		{"phase":"MYSTERY","prompt":"</p></h3><p>Periodically, you will be given a choice between two \"mystery\" boxes, each of which contains a policy decision. The only information you have about the decisions in these boxes are the choices of other participants (indicated by arrows) who got to look inside the boxes before choosing. These participants will be the same ones whose choices you saw for other decisions. Select the box you would prefer based on the other participants' choices to continue.<br><br>Which one would you choose? Remember, ${peer1} and ${peer2} know what's inside the boxes.",
+		 "peer1":1,
+		 "peer2":2,
+		}]},
+    ];
+
+    var info_screen = {
+	"type": "instructions",
+	"show_clickable_nav": false,
+	"key_forward": " ",
+	"pages": ['<br><br><strong>After the mystery choice, you may be asked questions about the other participants. During this phase of the task, you will be using the number keys on your keyboard.<br><br> After that, you will continue with a new set of policy decisions, along with a new set of other participants.<br><br>Press the SPACEBAR to continue on to the actual task.</strong>']
+    };
+    
+    var includeLikert = typeof opts.includeLikert == "undefined" ? false : opts.includeLikert;
+    
+    if (includeLikert) {
+	var likertStims = ["Bugs", "Daffy"];
+	likertStims.shuffle();
+
+	var likertQuestions = ['How <span class="underline">funny</span> is this person?'];
+
+	for(var i = 0; i < likertStims.length; i++) {
+	    likertQuestions.shuffle();
+	    for(var j = 0; j < likertQuestions.length; j++) {
+		var likertTrial = {
+		    type: 'single-stim-sam',
+		    stimulus: 'img/agents/' + likertStims[i] + '.jpg',
+		    prompt: $('<div>').append(
+			$('<h3>', {html: likertQuestions[j]})
+		    ).append(
+			$('<p>', {html: 'Press a number between 1-9 on your keyboard'})
+		    ).append(
+			$('<table>', {
+			    html:
+			    '<tr><td class="likertScale">1</td><td class="likertScale">2</td><td class="likertScale">3</td><td class="likertScale">4</td><td class="likertScale">5</td><td class="likertScale">6</td><td class="likertScale">7</td><td class="likertScale">8</td><td class="likertScale">9</td></tr>\
+<tr><td>Not at All</td><td></td><td></td><td></td><td>Moderately</td><td></td><td></td><td></td><td>Extremely</td></tr>',
+			    css: {width:'600px'}
+			})
+		    ),
+		    choices: ['1','2','3','4','5','6','7','8','9']
+		}
+		if (i==0 && j==0) {
+		    likertTrial.instructions = $('<p>',{
+			html: "<strong>You may be asked of your assessment of other participants. During this phase of the task, you will be using the number keys on your keyboard.</strong>"
+		    });
+		    
+		}
+		timeline.push(likertTrial);
+	    }
+	}
+    } else {
+	timeline.push(info_screen);
+    }
+    return timeline;
+}
