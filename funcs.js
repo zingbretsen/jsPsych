@@ -431,7 +431,7 @@ function poliTimelineGen (stims, prompts, peers, opts) {
     var stims_prompts = [stims, prompts].transpose();
     stims_prompts.shuffle();
     var opts = opts || {}
-    var prompt = opts.prompt ||  "Which movie do you think ${peer} chose?";
+    var prompt = opts.prompt ||  "<span>Which movie do you think <u>${peer}</u> chose?</span>";
     var choices = opts.choices || ['e', 'i'];
     var peerAgreement = opts.peerAgreement || [
 	50,
@@ -523,10 +523,10 @@ function poliTimelineGen (stims, prompts, peers, opts) {
 	    choices		: choices,
 	    data		: {block_num: block_num},
 	    timeline: [
-		{prompt: prompts[i] + "<br><span id='subprompt'>Which would you choose?</span>", peer: 0},
-		{peer: 1, prompt: prompts[i] + "<br>Which do you think ${peer} chose?"},
-		{peer: 2, prompt: prompts[i] + "<br>Which do you think ${peer} chose?"},
-		{peer: 3, prompt: prompts[i] + "<br>Which do you think ${peer} chose?"},
+		{prompt: prompts[i] + "<br><span id='subprompt'>Which would <u>you</u> choose?</span>", peer: 0},
+		{peer: 1, prompt: prompts[i] + "<br><span id='subprompt'>Which do you think <u>${peer}</u> chose?</span>"},
+		{peer: 2, prompt: prompts[i] + "<br><span id='subprompt'>Which do you think <u>${peer}</u> chose?</span>"},
+		{peer: 3, prompt: prompts[i] + "<br><span id='subprompt'>Which do you think <u>${peer}</u> chose?</span>"},
 	    ]
 	}
 	if (i == 0) {
@@ -695,10 +695,10 @@ function practiceGenPoli(opts) {
 <br>Which policy stance would you choose?",
 		 "peer":0},
 		{"peer":1,
-		 "prompt":"After choosing your own preference, you will be asked to make guesses about the preferences of several other participants for the same movies.\
+		 "prompt":"After choosing your own preference, you will be asked to make guesses about the preferences of several other participants for the same policy decision.\
 <br>Should cartoons include plotlines involving duck-hunting?\
 <br>Which policy stance do you think ${peer} chose?",
-		 'feedbackPrompt': 'You will receive feedback about their true preferences (indicated by an arrow pointing towards the participant\'s preferred movie).'
+		 'feedbackPrompt': 'You will receive feedback about their true preferences (indicated by an arrow pointing towards the participant\'s preferred policy position).<br>'
 		},
 		{"peer":2,
 		 "prompt":"Other participants may agree or disagree on their preferences.\
