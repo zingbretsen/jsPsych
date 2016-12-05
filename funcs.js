@@ -523,7 +523,7 @@ function poliTimelineGen (stims, prompts, peers, opts) {
 	    choices		: choices,
 	    data		: {block_num: block_num},
 	    timeline: [
-		{prompt: prompts[i] + "<br>Which would you choose?", peer: 0},
+		{prompt: prompts[i] + "<br><span id='subprompt'>Which would you choose?</span>", peer: 0},
 		{peer: 1, prompt: prompts[i] + "<br>Which do you think ${peer} chose?"},
 		{peer: 2, prompt: prompts[i] + "<br>Which do you think ${peer} chose?"},
 		{peer: 3, prompt: prompts[i] + "<br>Which do you think ${peer} chose?"},
