@@ -679,7 +679,7 @@ function practiceGenPoli(opts) {
     var timeline = [
 	{
 	    "type":"similarity",
-	    "prompt":"Which position do you think ${peer} chose?",
+	    "prompt":"<span>Which position do you think <u>${peer}</u> chose?</span>",
 	    "peers":["You", "Bugs","Daffy"],
 	    "peer_agree":[1,0,1],
 	    "peer_compare":[0,1,1],
