@@ -244,8 +244,8 @@ function addVotes (peer, percent) {
 	    }
 	}
     } else if (numToAdd < 0) {
-	var votesToAdd = [1].rep(Math.abs(numToAdd));
-	var votesToKeep = [0].rep(peerDisagrees - Math.abs(numToAdd));
+	var votesToAdd = [0].rep(Math.abs(numToAdd));
+	var votesToKeep = [1].rep(peerAgrees - Math.abs(numToAdd));
 	votesToAdd.push.apply(votesToAdd, votesToKeep);
 	votesToAdd.shuffle();
 
@@ -698,7 +698,8 @@ function practiceGenPoli(opts) {
 		 "prompt":"After choosing your own preference, you will be asked to make guesses about the preferences of several other participants for the same policy decision.\
 <br>Should cartoons include plotlines involving duck-hunting?\
 <br>Which policy stance do you think ${peer} chose?",
-		 'feedbackPrompt': 'You will receive feedback about their true preferences (indicated by an arrow pointing towards the participant\'s preferred policy position).<br>'
+		 'feedbackPrompt': 'You will receive feedback about their true preferences (indicated by an arrow pointing towards the participant\'s preferred policy position).\
+<br>Note that their responses are being recorded in the table on the right.<br>'
 		},
 		{"peer":2,
 		 "prompt":"Other participants may agree or disagree on their preferences.\
